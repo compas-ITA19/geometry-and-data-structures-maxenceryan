@@ -37,14 +37,9 @@ def get_traverse(start_key):
         if mesh.vertex_degree(current) < 4:
             break
         
-        i = mesh.vertex_neighbors(current).index(previous)
-
-        if i+2 >= 3:
-            i = (i+2) % 4
-
-        i = i+2 % 4
-
-        current = mesh.vertex_neighbors(current)[i]
+        neighbors = mesh.vertex_neighbors(current, ordered=True)
+        i = neighbors.index(previous)
+        previous, current = current, neighbors[i-2]
 
     return vertices
 
